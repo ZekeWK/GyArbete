@@ -24,10 +24,10 @@ class GaussianInteger:
         return GaussianInteger(self.a, -self.b)
 
     def real(self):
-        return GaussianInteger(self.a, 0)
+        return self.a
 
     def imag(self):
-        return GaussianInteger(0, self.b)
+        return self.b
 
     def __add__(self, other):
         return GaussianInteger(self.a + other.a, self.b + other.b)
@@ -48,3 +48,5 @@ class GaussianInteger:
         else:
             return GaussianInteger(self.a / other, self.b / other)
 
+    def get_tuple(self):
+        return (self.a, self.b)
