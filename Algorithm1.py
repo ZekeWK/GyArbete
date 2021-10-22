@@ -5,9 +5,7 @@ def Algorithm1(n):
     sqrt_n = math.isqrt(n)
 
     possible_gaussian_primes = [[True for b in range(0, min(a, math.isqrt(n-(a**2)))+1)] for a in range(1, sqrt_n + 1)]
-    print(possible_gaussian_primes)
-    #possible_gaussian_primes = [[True for b in range(0, min(math.isqrt(n - (a-1)**2) + 1, a-1))] for a in range(1, n+1)] #Double check this
-    
+
     def in_bounds_possible_gaussian_primes(gaussian_integer):
         (a, b) = gaussian_integer.get_tuple()
 
@@ -36,18 +34,18 @@ def Algorithm1(n):
         n_div_norm = n // z.abs2()
 
         for x in range(1, n_div_norm + 1):
-                    for y in range(n_div_norm + 1):
-                        w = GI.GaussianInteger(x, y)
-                        
-                        product1 = z       * w
-                        product2 = z.con() * w
-                        product3 = z       * w.con()
-                        product4 = z.con() * w.con()
+            for y in range(n_div_norm + 1):
+                w = GI.GaussianInteger(x, y)
+                
+                product1 = z       * w
+                product2 = z.con() * w
+                product3 = z       * w.con()
+                product4 = z.con() * w.con()
 
-                        remove_non_prime(product1)
-                        remove_non_prime(product2)
-                        remove_non_prime(product3)
-                        remove_non_prime(product4)
+                remove_non_prime(product1)
+                remove_non_prime(product2)
+                remove_non_prime(product3)
+                remove_non_prime(product4)
         readd_prime(z)
 
     remove_non_prime(GI.GaussianInteger(1, 0))
