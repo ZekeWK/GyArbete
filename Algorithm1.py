@@ -75,6 +75,7 @@ def Algorithm1(n):
                     gaussian_primes.append(a+1)
     return gaussian_primes
 
-result = Algorithm1(100)
-for i in result:
-    print(i)
+if __name__ == "__main__":    
+    result = Algorithm1(100)
+    for i in result:
+        print(i)

@@ -28,6 +28,7 @@ def Algorithm3(n):
 
     return gaussian_primes
 
-result = Algorithm3(100)
-for i in result:
-    print(i)
+if __name__ == "__main__":    
+    result = Algorithm3(100)
+    for i in result:
+        print(i)

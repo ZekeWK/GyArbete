@@ -48,6 +48,7 @@ def find_two_squares_that_sum_to(prime):
     return GI.GaussianInteger.new(euclids_algorithm_stop_early(prime, eulers_criterion(prime), math.sqrt(prime))) 
 
 
-result = Algorithm2(100)
-for i in result:
-    print(i)
+if __name__ == "__main__":    
+    result = Algorithm2(100)
+    for i in result:
+        print(i)
