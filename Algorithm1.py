@@ -1,3 +1,4 @@
+from typing import List
 import GaussianInteger as GI
 import math
 
@@ -5,7 +6,7 @@ def Algorithm1(n):
     sqrt_n = math.isqrt(n)
 
     possible_gaussian_primes = [[True for b in range(0, min(a, math.isqrt(n-(a**2)))+1)] for a in range(1, sqrt_n + 1)]
-
+    
     def in_bounds_possible_gaussian_primes(gaussian_integer):
         (a, b) = gaussian_integer.get_tuple()
 
@@ -18,7 +19,7 @@ def Algorithm1(n):
         else: 
             return False
     
-    def readd_prime(gaussian_prime): #Maybe make this better...
+    def readd_prime(gaussian_prime):
         if in_bounds_possible_gaussian_primes(gaussian_prime):
             possible_gaussian_primes[gaussian_prime.real()-1][gaussian_prime.imag()] = True
             return True
@@ -30,12 +31,15 @@ def Algorithm1(n):
             return possible_gaussian_primes[possible_gaussian_prime.real() -1][possible_gaussian_prime.imag()]
         return False
 
-    def remove_multiplicants(z):
-        n_div_norm = n // z.abs2()
+    def remove_multiplicants(z): #Double check this
+        n_div_norm =  n // z.abs2()
+        sqrt_n_div_norm = math.isqrt(n_div_norm)
 
-        for x in range(1, n_div_norm + 1):
-            for y in range(n_div_norm + 1):
+        for x in range(1, sqrt_n_div_norm + 1):
+            for y in range(sqrt_n_div_norm + 1):
                 w = GI.GaussianInteger(x, y)
+                if w.abs2() > n_div_norm:
+                    break
                 
                 product1 = z       * w
                 product2 = z.con() * w
