@@ -20,8 +20,7 @@ def main():
         return output
 
     for i in [Algorithm1.Algorithm1, Algorithm2.Algorithm2, Algorithm3.Algorithm3]: 
-        print(str(i))
+        print(str(i) + " Input, Time")
         print(time_it(i))
-        print()
 
 main()
