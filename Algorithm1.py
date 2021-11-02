@@ -1,4 +1,3 @@
-from typing import List
 import GaussianInteger as GI
 import math
 
