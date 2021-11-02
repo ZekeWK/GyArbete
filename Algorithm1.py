@@ -2,19 +2,16 @@ from typing import List
 import GaussianInteger as GI
 import math
 
-def set_return(val, var):
-    var[0] = val
-    return val
-
-
 def Algorithm1(n):
     sqrt_n = math.isqrt(n)
 
-    cashed_b_range = [(None, None)]
-    #This line creates a list of all the gaussian integerst, and used  cashed_b_range to avoid calculating the value over and over again.
-    possible_gaussian_primes = [[True for b in range(0, cashed_b_range[0][1] if cashed_b_range[0][0] == a else set_return((a, min(a, math.isqrt(n-(a**2)))+1), cashed_b_range)[1])] for a in range(1, sqrt_n + 1)]
-    #possible_gaussian_primes = [[True for b in range(0, min(a, math.isqrt(n-(a**2)))+1)] for a in range(1, sqrt_n + 1)] is an alternative without cashing.
+    cashed_b = (None, None)
+    def cash_b(a):
+        val = min(a, math.isqrt(n-(a**2)))+1
+        cash = (a, val)
+        return val
 
+    possible_gaussian_primes = [[True for b in range(0, cashed_b[1] if cashed_b[0] == a else cash_b(a))] for a in range(1, sqrt_n + 1)]
     
     def in_bounds_possible_gaussian_primes(gaussian_integer):
         (a, b) = gaussian_integer.get_tuple()
@@ -40,7 +37,7 @@ def Algorithm1(n):
             return possible_gaussian_primes[possible_gaussian_prime.real() -1][possible_gaussian_prime.imag()]
         return False
 
-    def remove_multiplicants(z): #Double check this, Fix so that it stops if it doesnt need to run.
+    def remove_multiplicants(z):
         n_div_norm =  n // z.abs2()
         sqrt_n_div_norm = math.isqrt(n_div_norm)
 
@@ -55,6 +52,7 @@ def Algorithm1(n):
                 product3 = z       * w.con()
                 product4 = z.con() * w.con()
 
+                #Unsure wether this is really needed. It barely impacts performance.
                 if product1.real() < product1.imag() and product2.real() < product2.imag() and 0 > product3.imag() and 0 > product4.imag():
                     break
 
@@ -98,5 +96,3 @@ if __name__ == "__main__":
     result = Algorithm1(100)
     for i in result:
         print(i)
-
-
