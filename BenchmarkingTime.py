@@ -4,11 +4,7 @@ import Algorithm3
 
 import time
 
-def main():
-    times_for_average = 10
-    inputs = range(100, 1001, 100)
-
-    def time_it(algorithm):
+def time_it(algorithm, times_for_average, inputs):
         output = ""
         for input in inputs:
             start_time = time.time()
@@ -19,8 +15,10 @@ def main():
             output += str(input) + ", " + str(average_time) + "\n"
         return output
 
+def main():
     for i in [Algorithm1.Algorithm1, Algorithm2.Algorithm2, Algorithm3.Algorithm3]: 
         print(str(i) + " Input, Time")
-        print(time_it(i))
+        print(time_it(i, 10, range(100, 1001, 100)))
 
-main()
+if __name__ == "__main__":
+    main()

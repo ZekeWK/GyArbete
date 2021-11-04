@@ -51,7 +51,7 @@ def Algorithm1(n):
                 product3 = z       * w.con()
                 product4 = z.con() * w.con()
 
-                #Unsure wether this is really needed. It barely impacts performance.
+                #Unsure whether this is really needed. It barely impacts performance.
                 if product1.real() < product1.imag() and product2.real() < product2.imag() and 0 > product3.imag() and 0 > product4.imag():
                     break
 
