@@ -9,16 +9,19 @@ from tqdm import tqdm
 
 def main():
     inputs = range(1000, 10001, 1000)
-    iterations_per = 10
+    iterations_time = 10
+    iterations_memory = 2
 
-    benchmarks = benchmark_the_algorithms(inputs, iterations_per)
+    benchmarks = benchmark_the_algorithms(inputs, iterations_time, iterations_memory)
 
-    output_string = "Benchmark run at: " + str(datetime.now()) + " , with iterations_per: " + str(iterations_per) + ".\n"
+    output_string = "Benchmark run at: " + str(datetime.now()) + " , with iterations_time: " + str(iterations_time) + " , and with iterations_memory: " + str(iterations_memory) + ".\n"
     output_string += benchmarks_to_readable(benchmarks)
     
-    output_file = open("results.txt", 'a')
-    output_file.write(output_string)
+    with open("results.txt", "a") as f:
+        f.write(output_string)
 
+    with open("last_results.txt", "w+") as f:
+        f.write(output_string)
 
 def benchmarks_to_readable(benchmarks):
     output_string = str()
@@ -31,12 +34,12 @@ def benchmarks_to_readable(benchmarks):
             output_string += "\n"
     return output_string
     
-def benchmark_the_algorithms(inputs, iterations_per):
+def benchmark_the_algorithms(inputs, iterations_time, iterations_memory):
     time_benchmarks = []
     memory_benchmarks = []
     for algorithm in [Algorithm1, Algorithm2, Algorithm3]:
-        time_benchmarks   .append(get_benchmark_of(get_time_used,   algorithm, tqdm(inputs), iterations_per))
-        memory_benchmarks .append(get_benchmark_of(get_memory_peak, algorithm, tqdm(inputs), iterations_per))
+        time_benchmarks   .append(get_benchmark_of(get_time_used,   algorithm, tqdm(inputs), iterations_time))
+        memory_benchmarks .append(get_benchmark_of(get_memory_peak, algorithm, tqdm(inputs), iterations_memory))
     return (time_benchmarks, memory_benchmarks)
 
 def get_benchmark_of(test, algorithm, inputs, iterations_per):
