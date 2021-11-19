@@ -6,11 +6,12 @@ import tracemalloc
 import time
 from datetime import datetime
 from tqdm import tqdm
+from itertools import chain
 
 def main():
-    inputs = range(1000, 10001, 1000)
+    inputs = chain(range(1000, 100000, 1000), range(100000, 1000001, 10000))
     iterations_time = 10
-    iterations_memory = 2
+    iterations_memory = 3
 
     benchmarks = benchmark_the_algorithms(inputs, iterations_time, iterations_memory)
 
@@ -62,13 +63,14 @@ def get_memory_peak(algorithm, input):
     return memory_peak
 
 def get_time_used(algorithm, input):
-    start_time = time.time()
+    start_time = time.process_time()
     algorithm(input)
-    end_time = time.time()
+    end_time = time.process_time()
     return end_time - start_time
 
 
 if __name__ == "__main__":
+    input()
     print("Activated")
     main()
     print("Done")
