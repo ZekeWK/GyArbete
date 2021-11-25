@@ -28,7 +28,7 @@ def eulers_criterion(prime):
     if prime % 4 != 1:
         raise Exception
 
-    exponent = int((prime - 1) / 4)
+    exponent = (prime - 1) // 4
 
     for natural_prime in natural_primes:
         possible_root = pow(natural_prime, exponent, prime)
