@@ -7,22 +7,25 @@ import time
 from datetime import datetime
 from tqdm import tqdm
 from itertools import chain
+from copy import deepcopy
 
 def main():
     inputs = chain(range(1000, 100000, 1000), range(100000, 1000001, 10000))
-    iterations_time = 10
+    iterations_time = 5
     iterations_memory = 3
 
     benchmarks = benchmark_the_algorithms(inputs, iterations_time, iterations_memory)
-
+    print("Benchmarks OK")
     output_string = "Benchmark run at: " + str(datetime.now()) + " , with iterations_time: " + str(iterations_time) + " , and with iterations_memory: " + str(iterations_memory) + ".\n"
     output_string += benchmarks_to_readable(benchmarks)
-    
+    print("To Readable OK")
     with open("results.txt", "a") as f:
         f.write(output_string)
 
     with open("last_results.txt", "w+") as f:
         f.write(output_string)
+    
+    print(benchmarks_to_readable)
 
 def benchmarks_to_readable(benchmarks):
     output_string = str()
@@ -39,8 +42,8 @@ def benchmark_the_algorithms(inputs, iterations_time, iterations_memory):
     time_benchmarks = []
     memory_benchmarks = []
     for algorithm in [Algorithm1, Algorithm2, Algorithm3]:
-        time_benchmarks   .append(get_benchmark_of(get_time_used,   algorithm, tqdm(inputs), iterations_time))
-        memory_benchmarks .append(get_benchmark_of(get_memory_peak, algorithm, tqdm(inputs), iterations_memory))
+        time_benchmarks   .append(get_benchmark_of(get_time_used,   algorithm, tqdm(deepcopy(inputs)), iterations_time))
+        memory_benchmarks .append(get_benchmark_of(get_memory_peak, algorithm, tqdm(deepcopy(inputs)), iterations_memory))
     return (time_benchmarks, memory_benchmarks)
 
 def get_benchmark_of(test, algorithm, inputs, iterations_per):
@@ -74,3 +77,4 @@ if __name__ == "__main__":
     print("Activated")
     main()
     print("Done")
+    input()
