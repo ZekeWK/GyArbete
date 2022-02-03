@@ -1,4 +1,3 @@
-from glob import glob
 from Algorithm1 import Algorithm1
 from Algorithm2 import Algorithm2
 from Algorithm3 import Algorithm3
@@ -9,12 +8,12 @@ import tracemalloc
 import time
 from datetime import datetime
 from tqdm import tqdm
-from itertools import chain
 from copy import deepcopy
 from bisect import bisect_right
+import statistics
 
 def main():
-    inputs = range(10000, 1000001, 10000)
+    inputs = range(100000, 5000001, 100000)
     iterations_time = 5
     iterations_memory = 3
 
@@ -33,12 +32,12 @@ def main():
 
 def benchmarks_to_readable(benchmarks):
     output_string = str()
-    for benchmark_type, string in zip(benchmarks, ["Time:\n", "Memory:\n"]):
+    for benchmark_type, string in zip(benchmarks, ["Input, Time, Standard Deviation:\n", "Input, Memory, Standard Deviation:\n"]):
         output_string += string
         for benchmark in benchmark_type:
-            output_string += str(benchmark[0])[14:24] + "\n"
+            output_string += str(benchmark[0]) + "\n" #[14:24]
             for test in benchmark[1]:
-                output_string += str(test[0]) + "; " + str(test[1]) + "\n"
+                output_string += str(test[0]) + "; " + str(test[1]) + "; " + str(test[2]) + "\n"
             output_string += "\n"
     return output_string
     
@@ -48,7 +47,7 @@ def benchmark_the_algorithms(inputs, iterations_time, iterations_memory):
 
     time_benchmarks = []
     memory_benchmarks = []
-    for algorithm in [run_Algorithm1, run_Algorithm2, run_Algorithm3]:
+    for algorithm in [run_Algorithm1, run_Algorithm2, run_Algorithm3, run_Algorithm2_And_Erastothenes, run_Algorithm3_And_Erastothenes]:
         time_benchmarks   .append(get_benchmark_of(get_time_used,   algorithm, tqdm(deepcopy(inputs)), iterations_time))
         memory_benchmarks .append(get_benchmark_of(get_memory_peak, algorithm, tqdm(deepcopy(inputs)), iterations_memory))
     return (time_benchmarks, memory_benchmarks)
@@ -56,17 +55,22 @@ def benchmark_the_algorithms(inputs, iterations_time, iterations_memory):
 def get_benchmark_of(test, algorithm, inputs, iterations_per):
     benchmarks = []
     for input in inputs:
-        benchmarks.append((input, get_average_usage(test, algorithm, input, iterations_per)))
+        (mean, standard_deviation) = get_mean_usage(test, algorithm, input, iterations_per)
+        benchmarks.append((input, mean, standard_deviation))
     return (algorithm, benchmarks)
 
-def get_average_usage(test, algorithm, input, iterations):
+def get_mean_usage(test, algorithm, input, iterations):
     global natural_primes
     primes = natural_primes[0:bisect_right(natural_primes, input)]
 
-    cur_sum = 0
+    results = []
     for _i in range(iterations):
-        cur_sum += test(algorithm, input, primes.copy())
-    return cur_sum/iterations
+        results.append(test(algorithm, input, primes.copy()))
+    
+    mean = statistics.mean(results)
+    standard_deviation = statistics.pstdev(results, mean)
+
+    return (mean, standard_deviation)
 
 def get_memory_peak(algorithm, input, primes):
     tracemalloc.start()
@@ -89,6 +93,12 @@ def run_Algorithm2(input, primes):
 
 def run_Algorithm3(input, primes):
     Algorithm3(input, primes)
+
+def run_Algorithm2_And_Erastothenes(input, primes):
+    Algorithm2(input, Erastothenes.ErastothenesSieve(input))
+
+def run_Algorithm3_And_Erastothenes(input, primes):
+    Algorithm3(input, Erastothenes.ErastothenesSieve(input))
 
 
 if __name__ == "__main__":
