@@ -50,3 +50,12 @@ class GaussianInteger:
 
     def get_tuple(self):
         return (self.a, self.b)
+
+    def __eq__(self, other) -> bool:
+        return (self.a, self.b) == (other.a, other.b)
+        
+    def __ne__(self, other) -> bool:
+        return (self.a, self.b) != (other.a, other.b)
+
+    def __lt__(self, other) -> bool:
+        return (self.abs2() < other.abs2() or (self.abs2() == other.abs2() and (self.a < self.b or (self.a == other.a and self.b < other.b))))

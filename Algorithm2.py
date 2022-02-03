@@ -2,10 +2,10 @@ import Erastothenes
 import GaussianInteger as GI
 import math
 
-def Algorithm2(n):
+def Algorithm2(n, natural_primes_list):
     global natural_primes
     
-    natural_primes = Erastothenes.ErastothenesSieve(n)
+    natural_primes = natural_primes_list
 
     sqrt_n = math.sqrt(n)
 
@@ -19,7 +19,7 @@ def Algorithm2(n):
         
         elif natural_prime % 4 == 3:
             if natural_prime <= sqrt_n:
-                gaussian_primes.append(natural_prime)
+                gaussian_primes.append(GI.GaussianInteger(natural_prime, 0))
     
     return gaussian_primes
 
@@ -49,6 +49,8 @@ def find_two_squares_that_sum_to(prime):
 
 
 if __name__ == "__main__":    
-    result = Algorithm2(100)
+    input = 100
+    result = Algorithm2(input, Erastothenes.ErastothenesSieve(input))
+    result.sort()
     for i in result:
         print(i)

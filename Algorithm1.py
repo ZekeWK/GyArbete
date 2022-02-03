@@ -51,7 +51,6 @@ def Algorithm1(n):
                 product3 = z       * w.con()
                 product4 = z.con() * w.con()
 
-                #Unsure whether this is really needed. It barely impacts performance.
                 if product1.real() < product1.imag() and product2.real() < product2.imag() and 0 > product3.imag() and 0 > product4.imag():
                     break
 
@@ -88,10 +87,12 @@ def Algorithm1(n):
                     gaussian_primes.append(GI.GaussianInteger(a + 1,b))
                     gaussian_primes.append(GI.GaussianInteger(a + 1,b).con())
                 else:
-                    gaussian_primes.append(a+1)
+                    gaussian_primes.append(GI.GaussianInteger(a+1, 0))
     return gaussian_primes
 
 if __name__ == "__main__":    
-    result = Algorithm1(100)
+    input = 100
+    result = Algorithm1(input)
+    result.sort()
     for i in result:
         print(i)

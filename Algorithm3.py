@@ -2,8 +2,8 @@ import GaussianInteger as GI
 import Erastothenes
 import math
 
-def Algorithm3(n):
-    natural_primes = set(Erastothenes.ErastothenesSieve(n)) #Add all the natural one's aswell
+def Algorithm3(n, natural_primes_list):
+    natural_primes = set(natural_primes_list) 
 
     gaussian_primes = []
 
@@ -24,11 +24,13 @@ def Algorithm3(n):
             break
 
         if possible_gaussian_prime % 4 == 3:
-            gaussian_primes.append(possible_gaussian_prime)
+            gaussian_primes.append(GI.GaussianInteger(possible_gaussian_prime, 0))
 
     return gaussian_primes
 
 if __name__ == "__main__":    
-    result = Algorithm3(100)
+    input = 100
+    result = Algorithm3(input, Erastothenes.ErastothenesSieve(input))
+    result.sort()
     for i in result:
         print(i)
