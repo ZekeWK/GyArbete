@@ -3,7 +3,7 @@ import Erastothenes
 import math
 
 def Algorithm3(n, natural_primes_list):
-    natural_primes = set(natural_primes_list) 
+    natural_primes = natural_primes_list 
 
     gaussian_primes = []
 
@@ -30,7 +30,7 @@ def Algorithm3(n, natural_primes_list):
 
 if __name__ == "__main__":    
     input = 100
-    result = Algorithm3(input, Erastothenes.ErastothenesSieve(input))
+    result = Algorithm3(input, set(Erastothenes.ErastothenesSieve(input)))
     result.sort()
     for i in result:
         print(i)
