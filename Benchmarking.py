@@ -13,7 +13,7 @@ from bisect import bisect_right
 import statistics
 
 def main():
-    inputs = range(100000, 5000001, 100000)
+    inputs = range(5000, 100001, 5000) #range(100000, 5000001, 100000)
     iterations_time = 5
     iterations_memory = 3
 
@@ -61,11 +61,17 @@ def get_benchmark_of(test, algorithm, inputs, iterations_per):
 
 def get_mean_usage(test, algorithm, input, iterations):
     global natural_primes
-    primes = natural_primes[0:bisect_right(natural_primes, input)]
+
+    if algorithm == run_Algorithm2:
+        primes = natural_primes[0:bisect_right(natural_primes, input)]
+    elif algorithm == run_Algorithm3:
+        primes = set(natural_primes[0:bisect_right(natural_primes, input)].copy())
+    else:
+        primes = None
 
     results = []
     for _i in range(iterations):
-        results.append(test(algorithm, input, primes.copy()))
+        results.append(test(algorithm, input, primes))
     
     mean = statistics.mean(results)
     standard_deviation = statistics.pstdev(results, mean)
@@ -98,7 +104,7 @@ def run_Algorithm2_And_Erastothenes(input, primes):
     Algorithm2(input, Erastothenes.ErastothenesSieve(input))
 
 def run_Algorithm3_And_Erastothenes(input, primes):
-    Algorithm3(input, Erastothenes.ErastothenesSieve(input))
+    Algorithm3(input, set(Erastothenes.ErastothenesSieve(input)))
 
 
 if __name__ == "__main__":
