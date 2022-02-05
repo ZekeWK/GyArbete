@@ -13,7 +13,7 @@ from bisect import bisect_right
 import statistics
 
 def main():
-    inputs = range(5000, 100001, 5000) #range(100000, 5000001, 100000)
+    inputs = range(100000, 5000001, 100000)
     iterations_time = 5
     iterations_memory = 3
 
