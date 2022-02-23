@@ -14,7 +14,7 @@ def run_Algorithm3(input):
     return Algorithm3(input, set(Erastothenes.ErastothenesSieve(input)))
 
 def main():
-    inputs = range(10000, 100010)
+    inputs = range(10000, 10010)
 
     for n in inputs:
         result1 = sorted(run_Algorithm1(n))

@@ -47,7 +47,7 @@ def benchmark_the_algorithms(inputs, iterations_time, iterations_memory):
 
     time_benchmarks = []
     memory_benchmarks = []
-    for algorithm in [run_Algorithm1, run_Algorithm2, run_Algorithm3, run_Algorithm2_And_Erastothenes, run_Algorithm3_And_Erastothenes]:
+    for algorithm in [run_Algorithm1, run_Algorithm2, run_Algorithm3, run_Algorithm2_Primes_Precalculated, run_Algorithm3_Primes_Precalculated]:
         time_benchmarks   .append(get_benchmark_of(get_time_used,   algorithm, tqdm(deepcopy(inputs)), iterations_time))
         memory_benchmarks .append(get_benchmark_of(get_memory_peak, algorithm, tqdm(deepcopy(inputs)), iterations_memory))
     return (time_benchmarks, memory_benchmarks)
@@ -62,9 +62,9 @@ def get_benchmark_of(test, algorithm, inputs, iterations_per):
 def get_mean_usage(test, algorithm, input, iterations):
     global natural_primes
 
-    if algorithm == run_Algorithm2:
+    if algorithm == run_Algorithm2_Primes_Precalculated:
         primes = natural_primes[0:bisect_right(natural_primes, input)]
-    elif algorithm == run_Algorithm3:
+    elif algorithm == run_Algorithm3_Primes_Precalculated:
         primes = set(natural_primes[0:bisect_right(natural_primes, input)].copy())
     else:
         primes = None
@@ -95,17 +95,16 @@ def run_Algorithm1(input, primes):
     Algorithm1(input)
 
 def run_Algorithm2(input, primes):
-    Algorithm2(input, primes)
-
-def run_Algorithm3(input, primes):
-    Algorithm3(input, primes)
-
-def run_Algorithm2_And_Erastothenes(input, primes):
     Algorithm2(input, Erastothenes.ErastothenesSieve(input))
 
-def run_Algorithm3_And_Erastothenes(input, primes):
+def run_Algorithm3(input, primes):
     Algorithm3(input, set(Erastothenes.ErastothenesSieve(input)))
 
+def run_Algorithm2_Primes_Precalculated(input, primes):
+    Algorithm2(input, primes)
+
+def run_Algorithm3_Primes_Precalculated(input, primes):
+    Algorithm3(input, primes)
 
 if __name__ == "__main__":
     print("Press enter to activate")

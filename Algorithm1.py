@@ -22,34 +22,33 @@ def Algorithm1(n):
 
     def remove_non_prime(gaussian_non_prime):
         if in_bounds_possible_gaussian_primes(gaussian_non_prime):
-            possible_gaussian_primes[gaussian_non_prime.real()-1][gaussian_non_prime.imag()] = False
+            possible_gaussian_primes[gaussian_non_prime.real()-1][gaussian_non_prime.imaginary()] = False
 
-    
     def readd_prime(gaussian_prime):
         if in_bounds_possible_gaussian_primes(gaussian_prime):
-            possible_gaussian_primes[gaussian_prime.real()-1][gaussian_prime.imag()] = True
+            possible_gaussian_primes[gaussian_prime.real()-1][gaussian_prime.imaginary()] = True
     
     def get_gaussian_prime(possible_gaussian_prime):
         if in_bounds_possible_gaussian_primes(possible_gaussian_prime):
-            return possible_gaussian_primes[possible_gaussian_prime.real() -1][possible_gaussian_prime.imag()]
+            return possible_gaussian_primes[possible_gaussian_prime.real() -1][possible_gaussian_prime.imaginary()]
         return False
 
     def remove_multiples(z):
-        n_div_norm =  n // z.abs2()
+        n_div_norm =  n // z.norm()
         sqrt_n_div_norm = math.isqrt(n_div_norm)
 
         for x in range(1, sqrt_n_div_norm + 1):
             for y in range(sqrt_n_div_norm + 1):
                 w = GI.GaussianInteger(x, y)
-                if w.abs2() > n_div_norm:
+                if w.norm() > n_div_norm:
                     break
                 
-                product1 = z       * w
-                product2 = z.con() * w
-                product3 = z       * w.con()
-                product4 = z.con() * w.con()
+                product1 = z             * w
+                product2 = z.conjugate() * w
+                product3 = z             * w.conjugate()
+                product4 = z.conjugate() * w.conjugate()
 
-                if product1.real() < product1.imag() and product2.real() < product2.imag() and 0 > product3.imag() and 0 > product4.imag():
+                if product1.real() < product1.imaginary() and product2.real() < product2.imaginary() and 0 > product3.imaginary() and 0 > product4.imaginary():
                     break
 
                 remove_non_prime(product1)
@@ -82,7 +81,7 @@ def Algorithm1(n):
             if value:
                 if b != 0:
                     gaussian_primes.append(GI.GaussianInteger(a + 1,b))
-                    gaussian_primes.append(GI.GaussianInteger(a + 1,b).con())
+                    gaussian_primes.append(GI.GaussianInteger(a + 1,b).conjugate())
                 else:
                     gaussian_primes.append(GI.GaussianInteger(a+1, 0))
     return gaussian_primes

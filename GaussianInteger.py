@@ -17,16 +17,16 @@ class GaussianInteger:
     def __abs__(self):
         return int(math.sqrt(self.a**2 + self.a**2))
     
-    def abs2(self):
+    def norm(self):
         return self.a**2 + self.b**2
 
-    def con(self):
+    def conjugate(self):
         return GaussianInteger(self.a, -self.b)
 
     def real(self):
         return self.a
 
-    def imag(self):
+    def imaginary(self):
         return self.b
 
     def __add__(self, other):
@@ -44,7 +44,7 @@ class GaussianInteger:
 
     def __floordiv__(self, other):
         if type(other) == GaussianInteger:
-            return (self * other.con()) // other.abs2()
+            return (self * other.conjugate()) // other.norm()
         else:
             return GaussianInteger(self.a / other, self.b / other)
 
@@ -58,7 +58,7 @@ class GaussianInteger:
         return (self.a, self.b) != (other.a, other.b)
 
     def __lt__(self, other) -> bool:
-        return (self.abs2() < other.abs2() or (self.abs2() == other.abs2() and (self.a < self.b or (self.a == other.a and self.b < other.b))))
+        return (self.norm() < other.norm() or (self.norm() == other.norm() and (self.a < self.b or (self.a == other.a and self.b < other.b))))
 
     def __key(self):
         return (self.a, self.b)

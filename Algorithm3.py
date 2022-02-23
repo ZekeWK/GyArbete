@@ -17,7 +17,7 @@ def Algorithm3(n, natural_primes_set):
             
             if norm in natural_primes:
                 gaussian_primes.append(GI.GaussianInteger(a, b))
-                gaussian_primes.append(GI.GaussianInteger(a, b).con())
+                gaussian_primes.append(GI.GaussianInteger(a, b).conjugate())
 
         if a % 4 == 3 and a in natural_primes:
             gaussian_primes.append(GI.GaussianInteger(a, 0))

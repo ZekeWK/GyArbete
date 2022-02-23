@@ -9,9 +9,8 @@ def ErastothenesSieve(n):
         if not possible_primes[number]:
             continue
         
-        else:
-            for non_prime in range(number * 2, n + 1, number):
-                possible_primes[non_prime] = False
+        for non_prime in range(number * 2, n + 1, number):
+            possible_primes[non_prime] = False
 
     primes = []
 

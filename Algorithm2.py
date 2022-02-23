@@ -15,7 +15,7 @@ def Algorithm2(n, natural_primes_list):
             gaussian_prime = find_two_squares_that_sum_to(natural_prime)
             
             gaussian_primes.append(gaussian_prime)
-            gaussian_primes.append(gaussian_prime.con())
+            gaussian_primes.append(gaussian_prime.conjugate())
         
         elif natural_prime % 4 == 3:
             if natural_prime <= sqrt_n:
@@ -41,7 +41,6 @@ def euclids_algorithm_stop_early(a, b, stop_size):
 
 def find_two_squares_that_sum_to(prime):
     return GI.GaussianInteger.new(euclids_algorithm_stop_early(prime, eulers_criterion(prime), math.sqrt(prime))) 
-
 
 if __name__ == "__main__":    
     input = 100
