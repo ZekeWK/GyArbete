@@ -1,4 +1,3 @@
-from unittest import result
 import Erastothenes
 
 from Algorithm1 import Algorithm1
@@ -44,9 +43,6 @@ def main():
                 sets[2] = '3'
             
             print(str(i) + "      "+ "".join(sets))
-
-
-
 
     print("Done")
 
