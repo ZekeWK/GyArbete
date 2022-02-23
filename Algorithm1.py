@@ -5,12 +5,15 @@ def Algorithm1(n):
     sqrt_n = math.isqrt(n)
 
     cashed_b = (None, None)
-    def cash_b(a):
-        val = min(a, math.isqrt(n-(a**2)))+1
-        cash = (a, val)
-        return val
+    def get_b(a):
+        if cashed_b[0] == a:
+            return cashed_b[1] 
+        else:
+            val = min(a, math.isqrt(n-(a**2)))+1
+            cash = (a, val)
+            return val
 
-    possible_gaussian_primes = [[True for b in range(0, cashed_b[1] if cashed_b[0] == a else cash_b(a))] for a in range(1, sqrt_n + 1)]
+    possible_gaussian_primes = [[True for b in range(0, get_b(a))] for a in range(1, sqrt_n + 1)]
     
     def in_bounds_possible_gaussian_primes(gaussian_integer):
         (a, b) = gaussian_integer.get_tuple()
@@ -20,23 +23,18 @@ def Algorithm1(n):
     def remove_non_prime(gaussian_non_prime):
         if in_bounds_possible_gaussian_primes(gaussian_non_prime):
             possible_gaussian_primes[gaussian_non_prime.real()-1][gaussian_non_prime.imag()] = False
-            return True
-        else: 
-            return False
+
     
     def readd_prime(gaussian_prime):
         if in_bounds_possible_gaussian_primes(gaussian_prime):
             possible_gaussian_primes[gaussian_prime.real()-1][gaussian_prime.imag()] = True
-            return True
-        else: 
-            return False
     
     def get_gaussian_prime(possible_gaussian_prime):
         if in_bounds_possible_gaussian_primes(possible_gaussian_prime):
             return possible_gaussian_primes[possible_gaussian_prime.real() -1][possible_gaussian_prime.imag()]
         return False
 
-    def remove_multiplicants(z):
+    def remove_multiples(z):
         n_div_norm =  n // z.abs2()
         sqrt_n_div_norm = math.isqrt(n_div_norm)
 
@@ -59,25 +57,24 @@ def Algorithm1(n):
                 remove_non_prime(product3)
                 remove_non_prime(product4)
 
-    
-
         readd_prime(z)
 
     remove_non_prime(GI.GaussianInteger(1, 0))
     
     for gaussian_integer in (GI.GaussianInteger(1, 1), GI.GaussianInteger(2, 1), GI.GaussianInteger(3, 0)):
-        remove_multiplicants(gaussian_integer)
+        remove_multiples(gaussian_integer)
 
-    sqrt_sqrt_n = math.isqrt(sqrt_n)
-    for norm in range(2, sqrt_sqrt_n + 1):
-        norm_div_2 = norm//2 + 1
+    sqrt_2_sqrt_n = math.isqrt(sqrt_n*2)
+    for manhattan_distance in range(2, sqrt_2_sqrt_n + 1):  
+        manhattan_distance_div_2 = manhattan_distance//2 + 1
 
-        for a in range(norm_div_2, norm + 1):
-            b = norm_div_2 - a
+        for a in range(manhattan_distance_div_2, manhattan_distance + 1):
+            b = manhattan_distance - a
 
             z = GI.GaussianInteger(a, b)
+
             if get_gaussian_prime(z):
-                remove_multiplicants(z)
+                remove_multiples(z)
 
     gaussian_primes = []
     for (a, values) in enumerate(possible_gaussian_primes):

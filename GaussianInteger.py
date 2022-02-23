@@ -59,3 +59,9 @@ class GaussianInteger:
 
     def __lt__(self, other) -> bool:
         return (self.abs2() < other.abs2() or (self.abs2() == other.abs2() and (self.a < self.b or (self.a == other.a and self.b < other.b))))
+
+    def __key(self):
+        return (self.a, self.b)
+
+    def __hash__(self):
+        return hash(self.__key())

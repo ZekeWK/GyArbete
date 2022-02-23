@@ -2,29 +2,25 @@ import GaussianInteger as GI
 import Erastothenes
 import math
 
-def Algorithm3(n, natural_primes_list):
-    natural_primes = natural_primes_list 
+def Algorithm3(n, natural_primes_set):
+    natural_primes = natural_primes_set 
 
     gaussian_primes = []
 
     sqrt_n = math.isqrt(n)
-    for a in range(sqrt_n):
+    for a in range(sqrt_n + 1):
         
         max_b = min(math.isqrt(n - a**2), a)
         for b in range(1, max_b + 1):
 
-            possible_gaussian_prime = a**2 + b**2
+            norm = a**2 + b**2
             
-            if possible_gaussian_prime in natural_primes:
+            if norm in natural_primes:
                 gaussian_primes.append(GI.GaussianInteger(a, b))
                 gaussian_primes.append(GI.GaussianInteger(a, b).con())
-    
-    for possible_gaussian_prime in natural_primes:
-        if possible_gaussian_prime**2 > n:
-            break
 
-        if possible_gaussian_prime % 4 == 3:
-            gaussian_primes.append(GI.GaussianInteger(possible_gaussian_prime, 0))
+        if a % 4 == 3 and a in natural_primes:
+            gaussian_primes.append(GI.GaussianInteger(a, 0))
 
     return gaussian_primes
 

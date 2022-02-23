@@ -25,8 +25,6 @@ def Algorithm2(n, natural_primes_list):
 
 def eulers_criterion(prime):
     global natural_primes
-    if prime % 4 != 1:
-        raise Exception
 
     exponent = (prime - 1) // 4
 
@@ -42,9 +40,6 @@ def euclids_algorithm_stop_early(a, b, stop_size):
     return euclids_algorithm_stop_early(b, a%b, stop_size)
 
 def find_two_squares_that_sum_to(prime):
-    if prime % 4 == 3:
-        raise Exception
-
     return GI.GaussianInteger.new(euclids_algorithm_stop_early(prime, eulers_criterion(prime), math.sqrt(prime))) 
 
 

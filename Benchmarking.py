@@ -35,7 +35,7 @@ def benchmarks_to_readable(benchmarks):
     for benchmark_type, string in zip(benchmarks, ["Input, Time, Standard Deviation:\n", "Input, Memory, Standard Deviation:\n"]):
         output_string += string
         for benchmark in benchmark_type:
-            output_string += str(benchmark[0]) + "\n" #[14:24]
+            output_string += str(benchmark[0]) + "\n"
             for test in benchmark[1]:
                 output_string += str(test[0]) + "; " + str(test[1]) + "; " + str(test[2]) + "\n"
             output_string += "\n"
