@@ -10,7 +10,7 @@ def Algorithm1(n):
             return cashed_b[1] 
         else:
             val = min(a, math.isqrt(n-(a**2)))+1
-            cash = (a, val)
+            cashed_b = (a, val)
             return val
 
     possible_gaussian_primes = [[True for b in range(0, get_b(a))] for a in range(1, sqrt_n + 1)]
